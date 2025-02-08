@@ -1,14 +1,6 @@
-# Base image
-FROM openjdk:17-oracle
-
-# Set working directory
-WORKDIR /app
-
-# Copy JAR file
-COPY target/organica-0.0.1-SNAPSHOT.jar myapp.jar
-
-# Expose port 8080
-EXPOSE 9090
-
-# Start the Java Spring Boot application
-CMD ["java", "-jar", "myapp.jar"]
+# Use OpenJDK 17 as the base image
+FROM openjdk:17-jdk-alpine
+VOLUME /tmp
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
